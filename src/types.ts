@@ -11,4 +11,5 @@ export interface CardOptions {
   compactMode: boolean;
   cardWidth: number;
   visibleProperties: string[];
+  dateFormat: string;
 }

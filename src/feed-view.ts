@@ -27,6 +27,7 @@ export class FeedView extends BasesView {
     compactMode: false,
     cardWidth: 500,
     visibleProperties: [],
+    dateFormat: "",
   };
 
   private scroller: VirtualScroller | null = null;
@@ -110,6 +111,7 @@ export class FeedView extends BasesView {
       compactMode: (this.config.get("compactMode") as boolean | undefined) ?? false,
       cardWidth: (this.config.get("cardWidth") as number | undefined) ?? 500,
       visibleProperties,
+      dateFormat: (this.config.get("dateFormat") as string | undefined) ?? "",
     };
 
     // Apply card width
@@ -136,11 +138,13 @@ export class FeedView extends BasesView {
         try {
           const parsed = parsePropertyId(propId);
           if (parsed.name === "name") continue;
-          this.properties.push({
+          const prop = {
             id: propId,
             name: this.config.getDisplayName(propId) ?? parsed.name,
             type: parsed.type,
-          });
+          };
+          console.log("[OF] property:", prop.name, "type:", prop.type, "id:", propId);
+          this.properties.push(prop);
         } catch {
           // Skip unparseable properties
         }
@@ -178,6 +182,7 @@ export class FeedView extends BasesView {
         containerEl: this.wrapperEl,
         estimatedHeight: this.options.compactMode ? 120 : 180,
         overscan: 8,
+        gap: 18,
         onRender: (index, el) => this.renderCard(index, el),
         onRecycle: (_index, el) => this.recycleCard(el),
       });

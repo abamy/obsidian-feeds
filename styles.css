@@ -32,7 +32,7 @@
 
 /* Virtual item wrapper */
 .of-virtual-item {
-  padding-bottom: 20px;
+  /* gap is handled by the virtual scroller's translateY positioning */
 }
 
 /* Card */
@@ -66,7 +66,7 @@
 }
 
 .of-card-title {
-  font-size: var(--font-ui-large);
+  font-size: 1.5em;
   font-weight: 600;
   color: var(--text-normal);
   text-decoration: none;
@@ -94,26 +94,39 @@
   display: inline-flex;
   align-items: center;
   gap: 2px;
+  white-space: nowrap;
+}
+
+/* Force all rendered children to be inline and compact */
+.of-property-value * {
+  margin: 0 !important;
+  padding: 0 !important;
+  display: inline !important;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: fit-content !important;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+  font: inherit !important;
+  field-sizing: content !important;
 }
 
 /* Hide note/file icons rendered by Bases value.renderTo() */
 .of-property-value .clickable-icon,
 .of-property-value svg.lucide-file,
 .of-property-value .nav-file-icon {
-  display: none;
+  display: none !important;
 }
 
-/* Style tag/select-type values as pills */
-.of-property-value .bases-cell-tag,
-.of-property-value .multi-select-pill {
-  display: inline-flex;
-  align-items: center;
+/* Pill style for all property values */
+.of-property-value {
   padding: 1px 8px;
   border-radius: 12px;
   border: 1px solid var(--background-modifier-border);
   background-color: var(--background-secondary);
   font-size: var(--font-ui-smaller);
-  white-space: nowrap;
 }
 
 /* Collapsible content wrapper */
@@ -182,7 +195,7 @@
 
 .of-compact-mode .of-card-title,
 .of-card.of-compact .of-card-title {
-  font-size: var(--font-ui-medium);
+  font-size: var(--font-ui-large);
 }
 
 .of-compact-mode .of-virtual-item {
@@ -245,6 +258,6 @@
 
 .of-card-editor .cm-content {
   padding: 0 !important;
-  margin-top: 0 !important;
+  margin-top: -1.5em !important;
   min-height: 0 !important;
 }

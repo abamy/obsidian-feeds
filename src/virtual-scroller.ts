@@ -3,6 +3,7 @@ interface VirtualScrollerOptions {
   containerEl: HTMLElement;
   estimatedHeight: number;
   overscan: number;
+  gap?: number;
   onRender: (index: number, el: HTMLElement) => void;
   onRecycle: (index: number, el: HTMLElement) => void;
 }
@@ -12,6 +13,7 @@ export class VirtualScroller {
   private containerEl: HTMLElement;
   private estimatedHeight: number;
   private overscan: number;
+  private gap: number;
   private onRender: (index: number, el: HTMLElement) => void;
   private onRecycle: (index: number, el: HTMLElement) => void;
 
@@ -36,6 +38,7 @@ export class VirtualScroller {
     this.containerEl = options.containerEl;
     this.estimatedHeight = options.estimatedHeight;
     this.overscan = options.overscan;
+    this.gap = options.gap ?? 0;
     this.onRender = options.onRender;
     this.onRecycle = options.onRecycle;
 
@@ -161,7 +164,7 @@ export class VirtualScroller {
     this.cumOffsets.length = this.itemCount;
     let sum = 0;
     for (let i = 0; i < this.itemCount; i++) {
-      sum += this.heights[i];
+      sum += this.heights[i] + this.gap;
       this.cumOffsets[i] = sum;
     }
     this.spacerEl.style.height = sum + "px";

@@ -36,6 +36,12 @@ export default class ObsidianFeedsPlugin extends Plugin {
           displayName: "Visible properties (empty = all)",
           default: [],
         },
+        {
+          key: "dateFormat",
+          type: "text",
+          displayName: "Date format (e.g. DD/MM/YYYY, MMM DD YYYY, empty = locale)",
+          default: "",
+        },
       ],
     });
   }

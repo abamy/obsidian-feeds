@@ -25,7 +25,7 @@ export class CardRenderer {
     options: CardOptions,
   ): void {
     el.empty();
-    el.className = "of-card" + (options.compactMode ? " of-compact" : "");
+    el.className = "of-virtual-item of-card" + (options.compactMode ? " of-compact" : "");
 
     // Header with title
     const header = el.createDiv({ cls: "of-card-header" });
@@ -58,15 +58,23 @@ export class CardRenderer {
     if (options.showProperties && properties.length > 0) {
       const propsRow = header.createDiv({ cls: "of-card-properties" });
       for (const prop of properties) {
-        const valueEl = propsRow.createSpan({ cls: "of-property-value" });
+        const valueEl = propsRow.createSpan({ cls: `of-property-value of-prop-${prop.type}` });
         try {
           const value = entry.getValue(prop.id);
           if (value) {
-            if (typeof value.renderTo === "function") {
+            const str = value.toString();
+            if (str && str !== "null" && str !== "undefined" && str.trim() !== "") {
+              // Format ISO dates (YYYY-MM-DD)
+              if (/^\d{4}-\d{2}-\d{2}/.test(str)) {
+                const d = new Date(str);
+                valueEl.textContent = isNaN(d.getTime())
+                  ? str
+                  : this.formatDate(d, options.dateFormat);
+              } else {
+                valueEl.textContent = str;
+              }
+            } else if (typeof value.renderTo === "function") {
               value.renderTo(valueEl, this.app.renderContext);
-            } else {
-              const str = value.toString();
-              if (str) valueEl.textContent = str;
             }
           }
         } catch {
@@ -124,6 +132,22 @@ export class CardRenderer {
     for (const el of els) {
       this.cleanup(el);
     }
+  }
+
+  private formatDate(d: Date, format: string): string {
+    if (!format) return d.toLocaleDateString();
+    const day = d.getDate();
+    const month = d.getMonth();
+    const year = d.getFullYear();
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const monthsFull = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    return format
+      .replace("DD", String(day).padStart(2, "0"))
+      .replace("D", String(day))
+      .replace("MMMM", monthsFull[month])
+      .replace("MMM", months[month])
+      .replace("MM", String(month + 1).padStart(2, "0"))
+      .replace("YYYY", String(year));
   }
 
   private async renderEditor(
