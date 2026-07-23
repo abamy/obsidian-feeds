@@ -258,6 +258,13 @@
 
 .of-card-editor .cm-content {
   padding: 0 !important;
-  margin-top: -1.5em !important;
   min-height: 0 !important;
+}
+
+/* Minimal theme's "Image grids" feature matches any div with two sibling
+   <img> elements -- including CodeMirror's invisible cm-widgetBuffer images,
+   which appear on ordinary lines. That turns editor lines into CSS grid rows
+   and destroys layout, so force every line back to a normal block. */
+.of-card-editor .cm-line {
+  display: block !important;
 }

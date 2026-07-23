@@ -10,6 +10,12 @@ export default class ObsidianFeedsPlugin extends Plugin {
         new FeedView(controller, containerEl),
       options: () => [
         {
+          key: "matchContentWidth",
+          type: "toggle",
+          displayName: "Match content width",
+          default: true,
+        },
+        {
           key: "cardWidth",
           type: "slider",
           displayName: "Card width",

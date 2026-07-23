@@ -20,7 +20,8 @@ In any Bases block, switch the view to **Feed** to use this plugin. View options
 
 | Option | Description |
 |---|---|
-| Card width | Width of each card (300-900px) |
+| Match content width | Cards fill the note's content width (default: on) |
+| Card width | Width of each card (300-900px), used when Match content width is off |
 | Show properties | Toggle inline property display below titles |
 | Compact mode | Smaller padding and font sizes |
 | Visible properties | Filter which properties appear (empty = all columns) |

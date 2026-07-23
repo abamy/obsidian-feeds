@@ -1,7 +1,7 @@
 {
 	"id": "obsidian-feeds",
 	"name": "Obsidian Feeds",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"minAppVersion": "1.10.0",
 	"description": "A feed layout for Bases that displays inline properties and editable content on each card.",
 	"author": "bamy",

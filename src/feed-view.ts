@@ -25,6 +25,7 @@ export class FeedView extends BasesView {
   private options: CardOptions = {
     showProperties: true,
     compactMode: false,
+    matchContentWidth: true,
     cardWidth: 500,
     visibleProperties: [],
     dateFormat: "",
@@ -109,13 +110,17 @@ export class FeedView extends BasesView {
     this.options = {
       showProperties: (this.config.get("showProperties") as boolean | undefined) ?? true,
       compactMode: (this.config.get("compactMode") as boolean | undefined) ?? false,
+      matchContentWidth: (this.config.get("matchContentWidth") as boolean | undefined) ?? true,
       cardWidth: (this.config.get("cardWidth") as number | undefined) ?? 500,
       visibleProperties,
       dateFormat: (this.config.get("dateFormat") as string | undefined) ?? "",
     };
 
-    // Apply card width
-    this.wrapperEl.style.maxWidth = this.options.cardWidth + "px";
+    // Apply card width -- match the surrounding note's content width by default,
+    // otherwise use the explicit slider value
+    this.wrapperEl.style.maxWidth = this.options.matchContentWidth
+      ? ""
+      : this.options.cardWidth + "px";
 
     // Filter to markdown files
     this.entries = [...this.data.data].filter(

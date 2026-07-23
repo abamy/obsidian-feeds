@@ -1,6 +1,6 @@
 {
 	"name": "obsidian-feeds",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"description": "Feed layout for Obsidian Bases with inline properties and editable content.",
 	"main": "main.js",
 	"scripts": {

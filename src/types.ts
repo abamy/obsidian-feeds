@@ -9,6 +9,7 @@ export interface PropertyConfig {
 export interface CardOptions {
   showProperties: boolean;
   compactMode: boolean;
+  matchContentWidth: boolean;
   cardWidth: number;
   visibleProperties: string[];
   dateFormat: string;
